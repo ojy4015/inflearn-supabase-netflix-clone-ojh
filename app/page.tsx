@@ -6,6 +6,6 @@ export const metadata = {
 };
 
 export default function Home() {
-  return <main>Netflix Clone</main>;
+  return <UI />;
   // return <main>Dropbox Clone</main>;
 }

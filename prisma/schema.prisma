@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Movie {
+  id           BigInt @id @default(autoincrement())
+  image_url    String
+  title        String @db.VarChar
+  overview     String @db.VarChar
+  vote_average Float
+  popularity   Float
+  release_date String @db.VarChar
+
+  @@map("movie")
+}
