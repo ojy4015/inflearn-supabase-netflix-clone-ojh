@@ -19,8 +19,20 @@ export async function getAllMovies() {
   }
 }
 
-export async function searchMovies(search = '') {
+interface SearchMoviesParams {
+  search?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export async function searchMovies({
+  search = '',
+  page = 1,
+  pageSize = 12,
+}: SearchMoviesParams) {
   try {
+    const skip = (page - 1) * pageSize;
+
     const movies = await prisma.movie.findMany({
       where: {
         OR: [
@@ -38,8 +50,37 @@ export async function searchMovies(search = '') {
           },
         ],
       },
+      skip,
+      take: pageSize,
     });
-    return movies;
+
+    // Get total count for pagination info
+    const totalCount = await prisma.movie.count({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+          {
+            overview: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+    });
+
+    return {
+      movies,
+      page,
+      pageSize,
+      totalCount,
+      hasNextPage: skip + pageSize < totalCount,
+    };
   } catch (error) {
     console.error('searchMovies error:', error);
     throw error;

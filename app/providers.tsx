@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import RecoilProvider from '@/config/RecoilProvider';
+import RecoilProvider from '../config/RecoilProvider';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   // Creates the global QueryClient for the app
