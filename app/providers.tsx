@@ -21,6 +21,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <RecoilProvider>
+      {/* This makes the QueryClient available to all React components in your app via React Context. */}
       <QueryClientProvider client={queryClient}>
         {children}
         <ReactQueryDevtools initialIsOpen={false} />

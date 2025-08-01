@@ -11,7 +11,7 @@ export default function MovieCardList() {
   const search = useRecoilValue(searchState);
 
   const getAllMoviesQuery = useQuery({
-    queryKey: ['movies', search],
+    queryKey: ['movies', search], // search값이 변경될때마다 queryFn이 실행됨
     queryFn: () => searchMovies(search),
   });
   return (

@@ -2,7 +2,7 @@
 
 import prisma from '@/utils/db';
 
-function handleError(error) {
+function handleError(error: any) {
   if (error) {
     console.error('Prisma error:', error);
     throw error;
@@ -23,10 +23,20 @@ export async function searchMovies(search = '') {
   try {
     const movies = await prisma.movie.findMany({
       where: {
-        title: {
-          contains: search,
-          mode: 'insensitive',
-        },
+        OR: [
+          {
+            title: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+          {
+            overview: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+        ],
       },
     });
     return movies;

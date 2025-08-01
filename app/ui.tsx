@@ -1,11 +1,24 @@
-'use client';
+import MovieCardList from '../components/movie-card-list';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
+import { searchMovies } from '../actions/movieActions';
 
-import MovieCardList from '@/components/movie-card-list';
+export default async function UI() {
+  const queryClient = new QueryClient();
 
-export default function UI() {
+  await queryClient.prefetchQuery({
+    queryKey: ['movies', ''], // search
+    queryFn: () => searchMovies(''),
+  });
+
   return (
-    <main className="mt-16">
-      <MovieCardList />
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <main className="mt-16">
+        <MovieCardList />
+      </main>
+    </HydrationBoundary>
   );
 }

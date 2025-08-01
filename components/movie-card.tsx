@@ -7,11 +7,6 @@ export default function MovieCard({ movie }) {
     <div className="col-span-1 relative">
       {/* Image 부분  */}
       <img src={movie.image_url} className="w-full" />
-      {/* ,"Follow the mythic journey of Paul Atreides as he unites
-      with Chani and the Fremen while on a path of revenge against the
-      conspirators who destroyed his family. Facing a choice between the love of
-      his life and the fate of the known universe, Paul endeavors to prevent a
-      terrible future only he can foresee.",8.3,3437.313,2024-02-27 */}
 
       {/* Title Dim */}
       <Link href={`/movies/${movie.id}`}>
